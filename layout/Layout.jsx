@@ -9,7 +9,7 @@ const Layout = () => {
       <nav className="navbar navbar-expand-lg sticky-top custom-navbar">
         <div className="container">
           <Link className="navbar-brand" to="/">
-            Sam's Store
+            迪士尼小物販賣精選店鋪
           </Link>
 
           <div className="navbar-nav ms-auto">
@@ -26,6 +26,12 @@ const Layout = () => {
             >
               Cart
             </NavLink>
+            <NavLink
+              className="nav-item nav-link"
+              to="/admin/products"
+            >
+              Admin
+            </NavLink>
           </div>
         </div>
       </nav>
@@ -38,7 +44,7 @@ const Layout = () => {
 
       <footer className="footer text-center">
         <div className="container">
-          <p>Copyright © 2026 Sam's Page</p>
+          <p>Copyright © 2026 SamDisnead's Page</p>
         </div>
       </footer>
     </>

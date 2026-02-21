@@ -7,14 +7,25 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { getProducts, addToCart } from '../services/productService';
 import { useDispatch } from 'react-redux';
 import { addToCartAsync } from '../slice/cartSlice';
+import UserProductModal from '../component/UserProductModal';
 
 const SingleProduct = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const [product, setProduct] = useState({});
+    const [product, setProduct] = useState({
+        id: null,
+        imageUrl: '',
+        title: '',
+        price: 0,
+        origin_price: 0,
+        description: '',
+        content: ''
+    });
     const [qty, setQty] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
     const [isAddingCart, setIsAddingCart] = useState(false);
+
+
 
     const dispatch = useDispatch();
 
@@ -48,18 +59,6 @@ const SingleProduct = () => {
     useEffect(() => {
         if (id) fetchProduct();
     }, [id]);
-
-    // const handleAddToCart = async () => {
-    //     setIsAddingCart(true);
-    //     try {
-    //         await addToCart(product.id, qty);
-    //         alert('已加入購物車'); // 之後可改為 Redux Toast 訊息
-    //     } catch (error) {
-    //         console.error("加入購物車失敗", error);
-    //     } finally {
-    //         setIsAddingCart(false);
-    //     }
-    // };
 
     if (isLoading) return <div className="container py-5 text-center"><div className="spinner-border"></div></div>;
 

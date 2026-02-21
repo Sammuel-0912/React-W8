@@ -1,7 +1,7 @@
 {
   "name": "package.json",
   "private": true,
-  "homepage": "https://sammuel-0912.github.io/React-W6/",
+  "homepage": "https://sammuel-0912.github.io/React-W8/",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
@@ -12,8 +12,10 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.11.2",
+    "@tailwindcss/vite": "^4.2.0",
     "axios": "^1.13.4",
     "bootstrap": "^5.3.8",
+    "framer-motion": "^12.34.2",
     "gh-pages": "^6.3.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
@@ -21,7 +23,8 @@
     "react-loader-spinner": "^8.0.2",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.13.0",
-    "sweetalert2": "^11.26.17"
+    "sweetalert2": "^11.26.17",
+    "tailwindcss": "^4.2.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",

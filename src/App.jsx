@@ -1,8 +1,8 @@
 import { useState } from 'react'
 
-import './App.css'
 import router from '../route/router';
 import {RouterProvider} from 'react-router-dom'
+import './assets/all.scss';
 
 function App() {
   

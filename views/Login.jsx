@@ -7,114 +7,55 @@ import { createAsyncMessage } from "../slice/messageSlice";
 
 const API_BASE = import.meta.env.VITE_API_BASE;
 
-function Login() {
+const Login = () => {
+  const [formData, setFormData] = useState({ username: '', password: '' });
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
-    const {
-        register: registerLogin,
-        handleSubmit: handleSubmitLogin,
-        formState: { errors: loginErrors, isValid },
-    } = useForm();
+  const handleInputChange = (e) => {
+    const { id, value } = e.target;
+    setFormData((prev) => ({ ...prev, [id]: value }));
+  };
 
-    const [authData, setAuthData] = useState(null);
-
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
-
-    const handleLogin = async (data) => {
-        try {
-            const response = await axios.post(`${API_BASE}/admin/signin`, data)
-            const { token, expired } = response.data;
-            setAuthData({ token, expired });
-
-        } catch (error) {
-            // alert("登入失敗", error.response.data.message);
-            dispatch(createAsyncMessage({
-                success: false,
-                message: error.response?.data?.message || "登入失敗，請檢查帳號密碼"
-            }));
-        }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    try {
+      const res = await axios.post(`${API_BASE}/admin/signin`, formData);
+      const { token, expired } = res.data;
+      
+      // 將 Token 存入 Cookie (hexToken)，並設定過期時間
+      document.cookie = `hexToken=${token}; expires=${new Date(expired)};`;
+      
+      // 成功後導向後台產品管理頁
+      navigate('/admin/products');
+    } catch (error) {
+      alert('登入失敗：' + (error.response?.data?.message || '請檢查帳號密碼'));
+    } finally {
+      setIsLoading(false);
     }
+  };
 
-    useEffect(() => {
-        const existToken = document.cookie.replace(
-            /(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/,
-            "$1"
-        );
-        if (existToken) {
-            axios.defaults.headers.common.Authorization = existToken;
-            navigate("/admin/products");
-            return;
-        }
-        if (authData) {
-            const { token, expired } = authData;
-            document.cookie = `hexToken=${token}; expires=${new Date(expired)};path=/`;
-            axios.defaults.headers.common.Authorization = token;
-            // alert("登入成功");
-            dispatch(createAsyncMessage({
-                success: true,
-                message: "登入成功"
-            }));
-            navigate("/admin/products");
+  return (
+    <div className="container d-flex align-items-center justify-content-center" style={{ minHeight: '100vh' }}>
+      <div className="card shadow border-0 p-4" style={{ width: '400px' }}>
+        <h2 className="text-center fw-bold mb-4">後台管理登入</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="form-floating mb-3">
+            <input type="email" className="form-control" id="username" placeholder="name@example.com" value={formData.username} onChange={handleInputChange} required />
+            <label htmlFor="username">Email address</label>
+          </div>
+          <div className="form-floating mb-4">
+            <input type="password" className="form-control" id="password" placeholder="Password" value={formData.password} onChange={handleInputChange} required />
+            <label htmlFor="password">Password</label>
+          </div>
+          <button className="btn btn-primary w-100 py-2 fw-bold" type="submit" disabled={isLoading}>
+            {isLoading ? '登入中...' : '登入'}
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+};
 
-        }
-    }, [authData, navigate, dispatch]);
-
-
-
-
-    return (
-        <div className="container login mt-5">
-            <div className="row justify-content-center">
-                <h1 className="h3 mb-3 font-weight-normal">請先登入</h1>
-                <div className="col-8">
-                    <form id="form" className="form-signin" onSubmit={handleSubmitLogin(handleLogin)}>
-                        <div className="form-floating mb-3">
-                            <input
-                                type="email"
-                                className="form-control"
-                                id="username"
-                                placeholder="name@example.com"
-                                {...registerLogin("username", {
-                                    required: "請輸入 Email 地址",
-                                    pattern: { value: /^\S+@\S+$/i, message: "Email 格式不正確" },
-                                })}
-                                required
-                                autoFocus
-                            />
-                            <label htmlFor="username">Email address</label>
-                            {loginErrors.username && <p className="text-danger mt-1">{loginErrors.username.message}</p>}
-                        </div>
-                        <div className="form-floating">
-                            <input
-                                type="password"
-                                className="form-control"
-                                id="password"
-                                placeholder="Password"
-                                {...registerLogin("password", {
-                                    required: "請輸入密碼",
-                                    minLength: { value: 6, message: "密碼長度至少需 6 碼" },
-                                })}
-                                required
-                            />
-                            <label htmlFor="password">Password</label>
-                            {loginErrors.password && <p className="text-danger mt-1">{loginErrors.password.message}</p>}
-                        </div>
-                        <button className="btn btn-lg btn-primary w-100 mt-3" type="submit"
-                            disabled={!isValid}
-                            style={{
-                                backgroundColor: isValid ? "#4CAF50" : "#ccc",
-                                cursor: isValid ? "pointer" : "not-allowed"
-                            }}
-                        >
-                            登入
-                        </button>
-                    </form>
-                </div>
-            </div>
-            <p className="mt-5 mb-3 text-muted">&copy; 2025~∞ - 六角學院</p>
-        </div>
-    );
-}
-
-
-export default Login; 
+export default Login;

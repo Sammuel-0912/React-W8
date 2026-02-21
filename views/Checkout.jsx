@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { createOrder } from '../services/productService';
 import { getCartAsync } from '../slice/cartSlice';
-import { createAsyncMessage } from '../slice/messageSlice';
 
 const Checkout = () => {
   const { cart, final_total } = useSelector((state) => state.cart);
@@ -21,23 +20,22 @@ const Checkout = () => {
   });
 
   const onSubmit = async (data) => {
-    //...設定orderData
+    const { message, ...user } = data;
+    const orderData = {
+      user,
+      message,
+    };
+    
     try {
       const res = await createOrder(orderData);
       if (res.data.success) {
-        dispatch(createAsyncMessage({
-          success: true,
-          message: '訂單建立成功!'
-        }));
-        navigate(`/checkout-success/${res.data.orderId}`);
+        alert('訂單建立成功！');
+        dispatch(getCartAsync()); // 清空或更新購物車狀態
+        navigate(`/checkout-success/${res.data.orderId}`); // 導向成功頁面
       }
     } catch (error) {
-      // 使用全域通知顯示伺服器回傳的錯誤 (例如：庫存不足、資料格式不符)
-      dispatch(createAsyncMessage({
-        success: false,
-        message: error.response?.data?.message || '結帳失敗，請稍後再試'
-      }));
-      } 
+      alert('訂 from 提交失敗：' + error.response?.data?.message);
+    }
   };
 
   return (
@@ -129,7 +127,7 @@ const Checkout = () => {
             </div>
 
             <div className="d-grid">
-              <button type="submit" className="btn btn-dark py-3 fw-bold">確認送出訂單</button>
+              <button type="submit" className="btn btn-dark py-3 fw-bold" onClick={onSubmit()}>確認送出訂單</button>
             </div>
           </form>
         </div>

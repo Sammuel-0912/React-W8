@@ -6,6 +6,7 @@ import Pagination from '../component/Pagination'; // 延用您現有的分頁元
 import * as bootstrap from "bootstrap";
 import { useDispatch } from 'react-redux';
 import { addToCartAsync } from '../slice/cartSlice';
+import UserProductModal from '../component/UserProductModal'; 
 
 const categories = ['全部', '飾品', '配件', '其他']; // 依 API 實際分類調整
 
@@ -19,6 +20,7 @@ const Products = () => {
     const [currentCategory, setCurrentCategory] = useState('全部');
 
     const dispatch = useDispatch();
+    const [tempProduct, setTempProduct] = useState({});
 
 
     const fetchProducts = async (page = 1, category = '') => {
@@ -32,6 +34,11 @@ const Products = () => {
         } finally {
             setIsLoading(false);
         }
+    };
+
+    // 開啟 Modal 的處理函式
+    const openModal = (product) => {
+        setTempProduct(product);
     };
 
     const handleAddToCart = (id) => {
@@ -93,9 +100,12 @@ const Products = () => {
                                                     <del className="ms-2 text-secondary fs-7">NT$ {product.origin_price.toLocaleString()}</del>
                                                 </p>
                                                 <div className="d-grid gap-2">
-                                                    <Link to={`/product/${product.id}`} className="btn btn-outline-primary btn-sm">
+                                                    <button
+                                                        className="btn btn-outline-secondary w-100 mb-2"
+                                                        onClick={() => openModal(product)} // 點選彈出視窗
+                                                    >
                                                         查看細節
-                                                    </Link>
+                                                    </button>
                                                     <button
                                                         className="btn btn-primary btn-sm"
                                                         onClick={() => handleAddToCart(product.id)}
@@ -113,11 +123,18 @@ const Products = () => {
                             <div className="d-flex justify-content-center mt-4">
                                 <Pagination pagination={pagination} changePage={fetchProducts} />
                             </div>
+
+                            {/* 放置 Modal 元件 */}
+                            <UserProductModal
+                                tempProduct={tempProduct}
+                                addToCart={handleAddToCart}
+                            />f
                         </>
                     )}
                 </div>
             </div>
         </div>
+
     );
 };
 

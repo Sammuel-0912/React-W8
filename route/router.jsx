@@ -13,6 +13,10 @@ import Checkout from "../views/Checkout";
 import NotFound from '../views/NotFound';
 import Login from "../views/Login";
 import CheckoutSuccess from "../views/CheckoutSuccess";
+import AdminProducts from "../views/AdminProducts";
+import AdminLayout from "../layout/AdminLayout";
+
+
 const router = createHashRouter([
     {
         path: '/',
@@ -41,6 +45,16 @@ const router = createHashRouter([
             {
                 path: 'login', // 登入頁面 (/login)
                 element: <Login />,
+            },
+            {
+                path: '/admin',
+                element: <AdminLayout />, // 這層會做驗證
+                children: [
+                    {
+                        path: 'products', // 完整路徑為 /admin/products
+                        element: <AdminProducts />,
+                    },
+                ],
             },
             {
                 path: 'checkout-success/:orderId', // 動態路徑接收訂單 ID
