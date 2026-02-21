@@ -35,7 +35,7 @@ const Home = () => {
             <span className="highlight">而是你的日常生活。</span>
           </h1>
 
-          <p>
+          <p className='text-black'>
             精選迪士尼與皮克斯正版小物，從《玩具總動員》的冒險到《米奇》的經典，
             為你的專屬空間注入 100% 的奇幻魔法。
           </p>

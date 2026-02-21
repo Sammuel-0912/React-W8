@@ -15,7 +15,7 @@ import Login from "../views/Login";
 import CheckoutSuccess from "../views/CheckoutSuccess";
 import AdminProducts from "../views/AdminProducts";
 import AdminLayout from "../layout/AdminLayout";
-
+import AdminOrders from "../views/AdminOrders";
 
 const router = createHashRouter([
     {
@@ -53,6 +53,10 @@ const router = createHashRouter([
                     {
                         path: 'products', // 完整路徑為 /admin/products
                         element: <AdminProducts />,
+                    },
+                    {
+                        path: 'orders',
+                        element: <AdminOrders />,
                     },
                 ],
             },

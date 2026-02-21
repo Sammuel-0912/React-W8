@@ -95,19 +95,19 @@ const Products = () => {
                                             <div className="card-body">
                                                 <span className="badge bg-light text-dark mb-2">{product.category}</span>
                                                 <h5 className="card-title text-truncate">{product.title}</h5>
-                                                <p className="card-text text-muted mb-3">
+                                                <p className="card-text text-muted mb-2">
                                                     NT$ {product.price.toLocaleString()}
                                                     <del className="ms-2 text-secondary fs-7">NT$ {product.origin_price.toLocaleString()}</del>
                                                 </p>
-                                                <div className="d-grid gap-2">
+                                                <div className="d-grid gap-0">
                                                     <button
-                                                        className="btn btn-outline-secondary w-100 mb-2"
+                                                        className="btn btn-outline-secondary w-100"
                                                         onClick={() => openModal(product)} // 點選彈出視窗
                                                     >
                                                         查看細節
                                                     </button>
                                                     <button
-                                                        className="btn btn-primary btn-sm"
+                                                        className="btn btn-primary btn-sm w-100 mt-3"
                                                         onClick={() => handleAddToCart(product.id)}
                                                     >
                                                         加入購物車

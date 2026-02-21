@@ -32,6 +32,12 @@ const Layout = () => {
             >
               Admin
             </NavLink>
+            <NavLink
+              className="nav-item nav-link d-inline h4 mx-2"
+              to="/admin/orders"
+            >
+              Admin Orders
+            </NavLink>
           </div>
         </div>
       </nav>

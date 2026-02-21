@@ -25,10 +25,13 @@
 .hero-bg {
   position: absolute;
   inset: 0;
-  background: url("https://images.unsplash.com/photo-1634221558053-3a617b5201d9?q=80&w=1174")
-    center/cover no-repeat;
-  z-index: 0;
-}
+  background:
+    linear-gradient(rgba(255,255,255,0.2), rgba(255,255,255,0.2)),
+    url("https://images.unsplash.com/photo-1634221558053-3a617b5201d9?q=80&w=1174") center/cover no-repeat;
+  object-fit: cover;
+  }
+
+
 
 .stars {
   position: absolute;
@@ -66,6 +69,9 @@
   color: #ffd166;
 }
 
+.text-black {
+  color: black;
+}
 /* BUTTON */
 .btn-primary {
   margin-top: 40px;
@@ -141,7 +147,7 @@
 .story-img {
   width: 100%;
   border-radius: 20px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
 .tag {

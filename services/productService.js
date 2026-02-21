@@ -39,6 +39,7 @@ export const putAdminProduct = (id, data) => {
 export const deleteAdminProduct = (id) => {
   return axios.delete(`${API_BASE}/api/${API_PATH}/admin/product/${id}`);
 };
+//圖片上傳
 export const uploadImage = (file) => {
   const formData = new FormData();
   formData.append('file-to-upload', file); // API 規定的 key 值
