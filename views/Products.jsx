@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 import { addToCartAsync } from '../slice/cartSlice';
 import UserProductModal from '../component/UserProductModal'; 
 
-const categories = ['全部', '飾品', '配件', '其他']; // 依 API 實際分類調整
+const categories = ['全部', '模型精品', '服飾配件', '廚房用品']; // 依 API 實際分類調整
 
 const API_BASE = import.meta.env.VITE_API_BASE;
 const API_PATH = import.meta.env.VITE_API_PATH;
