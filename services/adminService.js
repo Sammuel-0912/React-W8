@@ -1,4 +1,4 @@
-// src/services/adminService.js (新增訂單管理功能)
+// src/services/adminService.js (新增訂單管理功能，文章管理功能)
 import axios from 'axios';
 
 const API_BASE = import.meta.env.VITE_API_BASE;
@@ -22,4 +22,29 @@ export const deleteAdminOrder = (id) => {
 // 刪除全部訂單
 export const deleteAllAdminOrders = () => {
   return axios.delete(`${API_BASE}/api/${API_PATH}/admin/orders/all`);
+};
+
+// 取得文章列表
+export const getAdminArticles = (page = 1) => {
+  return axios.get(`${API_BASE}/api/${API_PATH}/admin/articles?page=${page}`);
+};
+
+// 取得單篇文章細節
+export const getAdminArticle = (id) => {
+  return axios.get(`${API_BASE}/api/${API_PATH}/admin/article/${id}`);
+};
+
+// 新增文章
+export const postAdminArticle = (data) => {
+  return axios.post(`${API_BASE}/api/${API_PATH}/admin/article`, { data });
+};
+
+// 更新文章
+export const putAdminArticle = (id, data) => {
+  return axios.put(`${API_BASE}/api/${API_PATH}/admin/article/${id}`, { data });
+};
+
+// 刪除文章
+export const deleteAdminArticle = (id) => {
+  return axios.delete(`${API_BASE}/api/${API_PATH}/admin/article/${id}`);
 };

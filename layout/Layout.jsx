@@ -26,6 +26,7 @@ const Layout = () => {
             >
               Cart
             </NavLink>
+            <NavLink className="nav-item nav-link" to="/blog">魔法故事館</NavLink>
             <NavLink
               className="nav-item nav-link"
               to="/admin/products"
@@ -38,6 +39,7 @@ const Layout = () => {
             >
               Admin Orders
             </NavLink>
+            <NavLink className="nav-item nav-link" to="/admin/articles">文章管理</NavLink>
           </div>
         </div>
       </nav>

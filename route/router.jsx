@@ -16,6 +16,9 @@ import CheckoutSuccess from "../views/CheckoutSuccess";
 import AdminProducts from "../views/AdminProducts";
 import AdminLayout from "../layout/AdminLayout";
 import AdminOrders from "../views/AdminOrders";
+import AdminArticles from "../views/AdminArticles";
+import Blog from "../views/Blog";
+import ArticleDetail from "../views/ArticleDetail";
 
 const router = createHashRouter([
     {
@@ -58,11 +61,21 @@ const router = createHashRouter([
                         path: 'orders',
                         element: <AdminOrders />,
                     },
+                    {
+                        path: 'articles',
+                        element: <AdminArticles />,
+                    },
                 ],
             },
             {
                 path: 'checkout-success/:orderId', // 動態路徑接收訂單 ID
                 element: <CheckoutSuccess />,
+            },
+            { path: 'blog', element: <Blog /> 
+
+            },
+            { path: 'article/:id', element: <ArticleDetail /> 
+
             },
         ],
     },
