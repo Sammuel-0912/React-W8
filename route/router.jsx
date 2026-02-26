@@ -5,7 +5,7 @@ import { createHashRouter } from "react-router-dom";
 import Layout from "../layout/Layout";
 
 // 引入前台頁面
-import Home from "../views/Home"; // 假設您有首頁
+import Home from "../views/Home"; 
 import Products from "../views/Products";
 import SingleProduct from "../views/SingleProduct";
 import Cart from "../views/Cart";

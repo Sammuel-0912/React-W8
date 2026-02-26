@@ -74,7 +74,7 @@ const AdminOrders = () => {
         <button className="btn btn-outline-danger" onClick={() => openDeleteModal({}, true)}>清除全部訂單</button>
       </div>
 
-      <table className="table mt-4">
+      <table className="table-responsive mt-4">
         <thead>
           <tr>
             <th>下單時間</th>

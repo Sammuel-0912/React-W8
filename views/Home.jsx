@@ -133,7 +133,6 @@ const Home = () => {
           </Link>
         </motion.div>
       </section>
-
     </div>
   );
 };

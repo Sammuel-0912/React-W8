@@ -1,55 +1,67 @@
 import { Outlet, Link, NavLink } from "react-router-dom";
 import "../src/assets/all.scss";
 import MessageToast from "../component/MessageToast";
+import { useState } from "react";
 
 const Layout = () => {
+  const [open, setOpen] = useState(false);
+
   return (
     <>
-      <MessageToast /> {/* 置於最外層，不受頁面內容影響 */}
-      <nav className="navbar navbar-expand-lg sticky-top custom-navbar">
-        <div className="container">
-          <Link className="navbar-brand" to="/">
-            迪士尼小物販賣精選店鋪
-          </Link>
+        <MessageToast /> {/* 置於最外層，不受頁面內容影響 */}
+        <header className="sticky-top bg-white shadow-sm">
+          <nav className="navbar navbar-expand-lg sticky-top custom-navbar">
+            <div className="container-fluid">
+              <NavLink className="navbar-brand" to="/">
+                Disney Store
+              </NavLink>
+              {/* 漢堡選單按鈕（小螢幕時出現） */}
+              <button
+                className="navbar-toggler"
+                type="button"
+                // data-bs-toggle="collapse"
+                // data-bs-target="#navbarNav"
+                // aria-controls="navbarNav"
+                aria-expanded={open}
+                // aria-label="Toggle navigation"
+                onClick={() => setOpen(!open)}
+              >
+                <span className="navbar-toggler-icon"></span>
+              </button>
 
-          <div className="navbar-nav ms-auto">
-            <NavLink
-              className="nav-item nav-link me-4"
-              to="/products"
-            >
-              Products
-            </NavLink>
-
-            <NavLink
-              className="nav-item nav-link"
-              to="/cart"
-            >
-              Cart
-            </NavLink>
-            <NavLink className="nav-item nav-link" to="/blog">魔法故事館</NavLink>
-            <NavLink
-              className="nav-item nav-link"
-              to="/admin/products"
-            >
-              Admin
-            </NavLink>
-            <NavLink
-              className="nav-item nav-link d-inline h4 mx-2"
-              to="/admin/orders"
-            >
-              Admin Orders
-            </NavLink>
-            <NavLink className="nav-item nav-link" to="/admin/articles">文章管理</NavLink>
-          </div>
-        </div>
-      </nav>
-
+              <div className={`collapse navbar-collapse ${open ? "show" :""}`} id="navbarNav">
+                <ul className="navbar-nav ms-auto">
+                  <li className="nav-item">
+                    <NavLink className="nav-link px-3" to="/">首頁</NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink className="nav-link px-3" to="/products">產品列表</NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink className="nav-link px-3" to="/cart">購物車</NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink className="nav-link px-3" to="/blog">故事館</NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink className="nav-link px-3" to="/admin/products">後台產品管理</NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink className="nav-link px-3" to="/admin/orders">後台訂單管理</NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink className="nav-link px-3" to="/admin/articles">後台文章管理</NavLink>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+        </header>
       <main className="main-content">
         <div className="container">
           <Outlet />
         </div>
       </main>
-
       <footer className="footer text-center">
         <div className="container">
           <p>Copyright © 2026 SamDisnead's Page</p>

@@ -30,7 +30,7 @@ const Cart = () => {
       <h2 className="text-center mb-4">購物車清單</h2>
       <div className="row justify-content-center">
         <div className="col-md-10">
-          <table className="table align-middle">
+          <table className="table-responsive align-middle">
             <thead>
               <tr>
                 <th>品名</th>

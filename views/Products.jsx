@@ -128,7 +128,7 @@ const Products = () => {
                             <UserProductModal
                                 tempProduct={tempProduct}
                                 addToCart={handleAddToCart}
-                            />f
+                            />
                         </>
                     )}
                 </div>
