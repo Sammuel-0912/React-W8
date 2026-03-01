@@ -119,22 +119,22 @@ const AdminProducts = () => {
             <table className="table mt-4">
                 <thead>
                     <tr>
-                        <th width="120">分類</th>
-                        <th>產品名稱</th>
-                        <th width="120">原價</th>
-                        <th width="120">售價</th>
-                        <th width="100">是否啟用</th>
-                        <th width="120">編輯</th>
+                        <th className='text-center'>分類</th>
+                        <th className='text-center'>產品名稱</th>
+                        <th className='text-center'>原價</th>
+                        <th className='text-center'>售價</th>
+                        <th className='text-center'>是否啟用</th>
+                        <th className='text-center'>編輯</th>
                     </tr>
                 </thead>
                 <tbody>
                     {products.map((item) => (
                         <tr key={item.id}>
-                            <td>{item.category}</td>
-                            <td>{item.title}</td>
-                            <td>{item.origin_price}</td>
-                            <td>{item.price}</td>
-                            <td>
+                            <td className='text-center'>{item.category}</td>
+                            <td className='text-center'>{item.title}</td>
+                            <td className='text-center'>{item.origin_price}</td>
+                            <td className='text-center'>{item.price}</td>
+                            <td className='text-center'>
                                 <span className={item.is_enabled ? 'text-success' : 'text-danger'}>
                                     {item.is_enabled ? '啟用' : '未啟用'}
                                 </span>

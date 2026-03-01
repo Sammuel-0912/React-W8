@@ -74,24 +74,24 @@ const AdminOrders = () => {
         <button className="btn btn-outline-danger" onClick={() => openDeleteModal({}, true)}>清除全部訂單</button>
       </div>
 
-      <table className="table-responsive mt-4">
+      <table className="table table-hover mt-4">
         <thead>
           <tr>
-            <th>下單時間</th>
-            <th>Email</th>
-            <th>購買項目</th>
-            <th>應付金額</th>
-            <th>是否付款</th>
-            <th>編輯</th>
+            <th className='text-center'>下單時間</th>
+            <th className='text-center'>Email</th>
+            <th className='text-center'>購買項目</th>
+            <th className='text-center'>應付金額</th>
+            <th className='text-center'>是否付款</th>
+            <th className='text-center'>編輯</th>
           </tr>
         </thead>
         <tbody>
           {orders.map((item) => (
             <tr key={item.id}>
-              <td>{new Date(item.create_at * 1000).toLocaleDateString()}</td>
-              <td>{item.user.email}</td>
-              <td>
-                <ul className="list-unstyled">
+              <td className='py-3'>{new Date(item.create_at * 1000).toLocaleDateString()}</td>
+              <td className='py-3'>{item.user.email}</td>
+              <td className='py-3'>
+                <ul className="list-unstyled mb-0">
                   {Object.values(item.products).map((product) => (
                     <li key={product.id}>
                       {product.product.title}：{product.qty} {product.product.unit}
@@ -99,8 +99,8 @@ const AdminOrders = () => {
                   ))}
                 </ul>
               </td>
-              <td>{item.total.toLocaleString()}</td>
-              <td>
+              <td className='py-3'>{item.total.toLocaleString()}</td>
+              <td className='py-3'>
                 <div className="form-check form-switch">
                   <input
                     className="form-check-input"
@@ -113,7 +113,7 @@ const AdminOrders = () => {
                   </label>
                 </div>
               </td>
-              <td>
+              <td className='py-3'>
                 <div className="btn-group">
                   <button className="btn btn-outline-primary btn-sm" onClick={() => openOrderModal(item)}>檢視</button>
                   <button className="btn btn-outline-danger btn-sm" onClick={() => openDeleteModal(item)}>刪除</button>

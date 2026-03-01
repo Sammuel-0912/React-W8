@@ -49,23 +49,23 @@ const Cart = () => {
           <table className="table-responsive align-middle">
             <thead>
               <tr>
-                <th>品名</th>
-                <th style={{ width: '150px' }}>數量</th>
-                <th className="text-end">單價</th>
-                <th className="text-end">小計</th>
-                <th style={{ width: '80px' }}>刪除</th>
+                <th className="text-center px-4 py-3">品名</th>
+                <th className="text-center px-4 py-3">數量</th>
+                <th className="text-center px-4 py-3">單價</th>
+                <th className="text-center px-4 py-3">小計</th>
+                <th className='text-center px-4 py-3'>刪除</th>
               </tr>
             </thead>
             <tbody>
               {cart.map((item) => (
                 <tr key={item.id}>
-                  <td>
+                  <td className="px-4 py-3">
                     <div className="d-flex align-items-center">
                       <img src={item.product.imageUrl} alt="" style={{ width: '60px', height: '60px', objectFit: 'cover' }} className="me-3" />
-                      {item.product.title}
+                      <h5 className='me-4'>{item.product.title}</h5>
                     </div>
                   </td>
-                  <td>
+                  <td className="px-4 py-3">
                     <div className="input-group input-group-sm">
                       <button
                         className="btn btn-outline-dark"
@@ -80,15 +80,17 @@ const Cart = () => {
                       >+</button>
                     </div>
                   </td>
-                  <td className="text-end">NT$ {item.product.price.toLocaleString()}</td>
-                  <td className="text-end fw-bold">NT$ {item.total.toLocaleString()}</td>
-                  <td className="text-center">
+                  <td className="text-center px-4 py-3">NT$ {item.product.price.toLocaleString()}</td>
+                  <td className="text-center fw-bold px-4 py-3">NT$ {item.total.toLocaleString()}</td>
+                  <td className="text-center px-4 py-3">
                     <button
                       type="button"
                       className="btn btn-outline-danger btn-sm"
                       onClick={() => dispatch(deleteCartItemAsync(item.id))}
+                      style={{ whiteSpace: 'nowrap' }}
                     >
-                      <i className="bi bi-x-lg">刪除</i>
+                      <i className="bi bi-x-lg"></i>
+                      <span className="d-none d-md-inline ms-1">刪除</span>
                     </button>
                   </td>
                 </tr>
@@ -96,9 +98,8 @@ const Cart = () => {
             </tbody>
             <tfoot>
               <tr>
-                <td colSpan="3" className="text-end fw-bold">總計</td>
-                <td className="text-end fw-bold h5 text-primary">NT$ {final_total.toLocaleString()}</td>
-                <td></td>
+                <td colSpan="3" className="text-end fw-bold px-4 py-3">總計</td>
+                <td className="text-center fw-bold text-primary px-4 py-3">NT$ {final_total.toLocaleString()}</td>
               </tr>
             </tfoot>
           </table>
