@@ -2,10 +2,14 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getCartAsync, updateCartAsync, deleteCartItemAsync } from '../slice/cartSlice';
+import { postApplyCoupon } from '../services/productService';
+import { useState } from 'react';
+import { createAsyncMessage } from '../slice/messageSlice';
 
 const Cart = () => {
   const { cart, total, final_total, isLoading } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
+  const [couponCode, setCouponCode] = useState('');
 
   useEffect(() => {
     dispatch(getCartAsync());
@@ -24,6 +28,18 @@ const Cart = () => {
       </div>
     );
   }
+
+  
+
+  const handleApplyCoupon = async () => {
+    try {
+      const res = await postApplyCoupon(couponCode);
+      dispatch(createAsyncMessage({ success: true, message: res.data.message }));
+      dispatch(getCartAsync()); // 重新取得購物車以更新折扣後的金額
+    } catch (error) {
+      dispatch(createAsyncMessage({ success: false, message: error.response?.data?.message }));
+    }
+  };
 
   return (
     <div className="container py-5">
@@ -51,14 +67,14 @@ const Cart = () => {
                   </td>
                   <td>
                     <div className="input-group input-group-sm">
-                      <button 
-                        className="btn btn-outline-dark" 
+                      <button
+                        className="btn btn-outline-dark"
                         type="button"
                         onClick={() => handleUpdateCart(item, item.qty - 1)}
                       >-</button>
                       <input type="number" className="form-control text-center" value={item.qty} readOnly />
-                      <button 
-                        className="btn btn-outline-dark" 
+                      <button
+                        className="btn btn-outline-dark"
                         type="button"
                         onClick={() => handleUpdateCart(item, item.qty + 1)}
                       >+</button>
@@ -67,8 +83,8 @@ const Cart = () => {
                   <td className="text-end">NT$ {item.product.price.toLocaleString()}</td>
                   <td className="text-end fw-bold">NT$ {item.total.toLocaleString()}</td>
                   <td className="text-center">
-                    <button 
-                      type="button" 
+                    <button
+                      type="button"
                       className="btn btn-outline-danger btn-sm"
                       onClick={() => dispatch(deleteCartItemAsync(item.id))}
                     >
@@ -86,7 +102,18 @@ const Cart = () => {
               </tr>
             </tfoot>
           </table>
-
+          <div className="input-group mb-3 mt-4" style={{ maxWidth: '300px' }}>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="請輸入優惠碼"
+              value={couponCode}
+              onChange={(e) => setCouponCode(e.target.value)}
+            />
+            <button className="btn btn-outline-dark" type="button" onClick={handleApplyCoupon}>
+              套用優惠券
+            </button>
+          </div>
           <div className="d-flex justify-content-between mt-4">
             <Link to="/products" className="btn btn-outline-secondary">繼續購物</Link>
             <Link to="/checkout" className="btn btn-dark px-5">建立訂單</Link>

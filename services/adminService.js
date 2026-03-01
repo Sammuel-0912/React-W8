@@ -48,3 +48,20 @@ export const putAdminArticle = (id, data) => {
 export const deleteAdminArticle = (id) => {
   return axios.delete(`${API_BASE}/api/${API_PATH}/admin/article/${id}`);
 };
+
+//取得優惠券列表
+export const getAdminCoupons = (page = 1) => {
+  return axios.get(`${API_BASE}/api/${API_PATH}/admin/coupons?page=${page}`);
+};
+
+export const postAdminCoupon = (data) => {
+  return axios.post(`${API_BASE}/api/${API_PATH}/admin/coupon`, { data });
+};
+
+export const putAdminCoupon = (id, data) => {
+  return axios.put(`${API_BASE}/api/${API_PATH}/admin/coupon/${id}`, { data });
+};
+
+export const deleteAdminCoupon = (id) => {
+  return axios.delete(`${API_BASE}/api/${API_PATH}/admin/coupon/${id}`);
+};

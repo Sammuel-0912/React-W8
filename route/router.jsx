@@ -5,7 +5,7 @@ import { createHashRouter } from "react-router-dom";
 import Layout from "../layout/Layout";
 
 // 引入前台頁面
-import Home from "../views/Home"; 
+import Home from "../views/Home";
 import Products from "../views/Products";
 import SingleProduct from "../views/SingleProduct";
 import Cart from "../views/Cart";
@@ -19,6 +19,7 @@ import AdminOrders from "../views/AdminOrders";
 import AdminArticles from "../views/AdminArticles";
 import Blog from "../views/Blog";
 import ArticleDetail from "../views/ArticleDetail";
+import AdminCoupons from "../views/AdminCoupons";
 
 const router = createHashRouter([
     {
@@ -62,6 +63,10 @@ const router = createHashRouter([
                         element: <AdminOrders />,
                     },
                     {
+                        path: 'coupons', // 後台優惠券管理
+                        element: <AdminCoupons />,
+                    },
+                    {
                         path: 'articles',
                         element: <AdminArticles />,
                     },
@@ -71,10 +76,12 @@ const router = createHashRouter([
                 path: 'checkout-success/:orderId', // 動態路徑接收訂單 ID
                 element: <CheckoutSuccess />,
             },
-            { path: 'blog', element: <Blog /> 
+            {
+                path: 'blog', element: <Blog />
 
             },
-            { path: 'article/:id', element: <ArticleDetail /> 
+            {
+                path: 'article/:id', element: <ArticleDetail />
 
             },
         ],

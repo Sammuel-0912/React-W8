@@ -45,3 +45,8 @@ export const uploadImage = (file) => {
   formData.append('file-to-upload', file); // API 規定的 key 值
   return axios.post(`${API_BASE}/api/${API_PATH}/admin/upload`, formData);
 };
+
+//新增前台套用優惠券
+export const postApplyCoupon = (code) => {
+  return axios.post(`${API_BASE}/api/${API_PATH}/coupon`, { data: { code } });
+};

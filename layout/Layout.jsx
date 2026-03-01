@@ -50,6 +50,9 @@ const Layout = () => {
                     <NavLink className="nav-link px-3" to="/admin/orders">後台訂單管理</NavLink>
                   </li>
                   <li className="nav-item">
+                    <NavLink className="nav-link px-3" to="/admin/coupons">後台優惠券管理</NavLink>
+                  </li>
+                  <li className="nav-item">
                     <NavLink className="nav-link px-3" to="/admin/articles">後台文章管理</NavLink>
                   </li>
                 </ul>
