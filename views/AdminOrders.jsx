@@ -16,21 +16,26 @@ const AdminOrders = () => {
   const bsOrderModal = useRef(null);
   const bsDeleteModal = useRef(null);
 
-  useEffect(() => {
-    bsOrderModal.current = new Modal(orderModalRef.current);
-    bsDeleteModal.current = new Modal(deleteModalRef.current);
-    fetchOrders();
-  }, []);
-
-  const fetchOrders = async (page = 1) => {
+    const fetchOrders = async (page = 1) => {
     try {
       const res = await getAdminOrders(page);
       setOrders(res.data.orders);
       setPagination(res.data.pagination);
     } catch (error) {
-      console.error('取得訂單失敗');
+      console.error('取得訂單失敗:', error);
     }
   };
+
+  useEffect(() => {
+    bsOrderModal.current = new Modal(orderModalRef.current);
+    bsDeleteModal.current = new Modal(deleteModalRef.current);
+    const loadOrder = async () => {
+      await fetchOrders();
+    }
+    loadOrder();
+  }, []);
+
+
 
   const openOrderModal = (order) => {
     setTempOrder({ ...order });
@@ -49,6 +54,7 @@ const AdminOrders = () => {
       bsOrderModal.current.hide();
       fetchOrders(pagination.current_page);
     } catch (error) {
+      console.error(error);
       alert('更新失敗');
     }
   };
@@ -63,6 +69,7 @@ const AdminOrders = () => {
       bsDeleteModal.current.hide();
       fetchOrders();
     } catch (error) {
+      console.error(error);
       alert('刪除失敗');
     }
   };
@@ -131,8 +138,7 @@ const AdminOrders = () => {
         modalRef={orderModalRef} 
         tempOrder={tempOrder} 
         setTempOrder={setTempOrder}
-        onUpdate={handleUpdateOrder}
-        
+        onUpdate={handleUpdateOrder}  
       />
 
       {/* 刪除確認 Modal */}

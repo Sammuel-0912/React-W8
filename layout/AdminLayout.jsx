@@ -22,6 +22,7 @@ const AdminLayout = () => {
         await axios.post(`${API_BASE}/api/user/check`);
         setIsAuth(true); // 驗證成功
       } catch (error) {
+        console.error(error);
         alert('請先登入');
         navigate('/login'); // 失敗則退回登入頁
       }

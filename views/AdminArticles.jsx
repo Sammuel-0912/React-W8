@@ -1,7 +1,7 @@
 // src/views/AdminArticles.jsx
 import { useEffect, useState, useRef } from 'react';
 import { Modal } from 'bootstrap';
-import { getAdminArticles, getAdminArticle, postAdminArticle, putAdminArticle, deleteAdminArticle } from '../services/adminService';
+import { getAdminArticles, getAdminArticle } from '../services/adminService';
 import ArticleModal from '../component/ArticleModal';
 import Pagination from '../component/Pagination';
 
@@ -10,17 +10,12 @@ const AdminArticles = () => {
     const [pagination, setPagination] = useState({});
     const [modalType, setModalType] = useState(''); // 'create', 'edit', 'delete'
     const [tempArticle, setTempArticle] = useState({
-        title: '', description: '', image: '', tag: [], create_at: Date.now(),
+        title: '', description: '', image: '', tag: [], create_at: new Date().toISOString(),
         author: '', isPublic: false, content: ''
     });
 
     const articleModalRef = useRef(null);
     const bsModal = useRef(null);
-
-    useEffect(() => {
-        bsModal.current = new Modal(articleModalRef.current);
-        fetchArticles();
-    }, []);
 
     const fetchArticles = async (page = 1) => {
         try {
@@ -28,9 +23,19 @@ const AdminArticles = () => {
             setArticles(res.data.articles);
             setPagination(res.data.pagination);
         } catch (error) {
-            console.error('取得文章失敗');
+            console.error(error);
+            alert('取得文章失敗');
         }
     };
+
+    useEffect(() => {
+        bsModal.current = new Modal(articleModalRef.current);
+        // 確保 fetch 操作不會在掛載的同一瞬間同步鎖死渲染
+        const loadData = async () => {
+            await fetchArticles();
+        }
+        loadData();
+    }, []);
 
     const openModal = async (type, article = {}) => {
         setModalType(type);
@@ -47,6 +52,7 @@ const AdminArticles = () => {
                 setTempArticle({ ...res.data.article });
                 bsModal.current.show();
             } catch (error) {
+                console.error(error);
                 alert('取得文章詳細資訊失敗');
             }
         }

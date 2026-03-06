@@ -1,8 +1,18 @@
 // src/views/Home.jsx
 import { Link } from 'react-router-dom';
+import { useMemo } from 'react';
 import { motion } from 'framer-motion';
 
 const Home = () => {
+  const stars = useMemo(() => {
+    return [...Array(40)].map((_, i) => ({
+      id: i,
+      randomY: 200 + (i * 15),
+      randomDuration: 4 + (i % 4),
+      randomLeft: (i * 2.5),
+    }));
+  }, []);
+
   return (
     <div className="home-page">
 
@@ -12,14 +22,14 @@ const Home = () => {
 
         {/* 星空 */}
         <div className="stars">
-          {[...Array(40)].map((_, i) => (
+          {stars.map((star) => (
             <motion.div
-              key={i}
+              key={star.id}
               className="star"
-              initial={{ opacity: 0, y: Math.random() * 800 }}
+              initial={{ opacity: 0, y: star.randomY }}
               animate={{ opacity: [0, 1, 0], y: -50 }}
-              transition={{ duration: 4 + Math.random() * 4, repeat: Infinity }}
-              style={{ left: `${Math.random() * 100}%` }}
+              transition={{ duration: star.randomDuration, repeat: Infinity }}
+              style={{ left: `${star.randomLeft}%` }}
             />
           ))}
         </div>

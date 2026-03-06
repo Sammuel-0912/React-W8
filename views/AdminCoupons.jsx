@@ -1,7 +1,7 @@
 // src/views/AdminCoupons.jsx
 import { useEffect, useState, useRef } from 'react';
 import { Modal } from 'bootstrap';
-import { getAdminCoupons, postAdminCoupon, putAdminCoupon, deleteAdminCoupon } from '../services/adminService';
+import { getAdminCoupons } from '../services/adminService';
 import CouponModal from '../component/CouponModal';
 import Pagination from '../component/Pagination';
 
@@ -9,25 +9,28 @@ const AdminCoupons = () => {
     const [coupons, setCoupons] = useState([]);
     const [pagination, setPagination] = useState({});
     const [modalType, setModalType] = useState('');
-    const [tempCoupon, setTempCoupon] = useState({
+    const [tempCoupon, setTempCoupon] = useState(() => ({
         title: '', is_enabled: 0, percent: 100, due_date: Date.now(), code: ''
-    });
+    }));
 
     const couponModalRef = useRef(null);
     const bsModal = useRef(null);
-
-    useEffect(() => {
-        bsModal.current = new Modal(couponModalRef.current);
-        fetchCoupons();
-    }, []);
 
     const fetchCoupons = async (page = 1) => {
         try {
             const res = await getAdminCoupons(page);
             setCoupons(res.data.coupons);
             setPagination(res.data.pagination);
-        } catch (error) { console.error('取得優惠券失敗'); }
+        } catch (error) { console.error('取得優惠券失敗:', error); }
     };
+
+    useEffect(() => {
+        bsModal.current = new Modal(couponModalRef.current);
+        const loadCoupon = async () => {
+            await fetchCoupons();
+        }
+        loadCoupon();
+    }, []);
 
     const openModal = (type, coupon = {}) => {
         setModalType(type);

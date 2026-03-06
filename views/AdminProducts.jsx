@@ -5,6 +5,7 @@ import { getAdminProducts, postAdminProduct, putAdminProduct, deleteAdminProduct
 import ProductModal from '../component/ProductModal';
 import Pagination from '../component/Pagination';
 import { useDispatch } from 'react-redux';
+import { createAsyncMessage } from '../slice/messageSlice'; 
 
 const AdminProducts = () => {
     const [products, setProducts] = useState([]);
@@ -32,7 +33,7 @@ const AdminProducts = () => {
             setProducts(res.data.products);
             setPagination(res.data.pagination);
         } catch (error) {
-            console.error('取得產品失敗');
+            console.error('取得產品失敗:', error);
         }
     };
 
@@ -63,6 +64,7 @@ const AdminProducts = () => {
             closeModal();
             fetchProducts();
         } catch (error) {
+            console.error(error);
             alert('操作失敗');
         }
     };
@@ -74,6 +76,7 @@ const AdminProducts = () => {
             closeModal();
             fetchProducts();
         } catch (error) {
+            console.error(error);
             alert('刪除失敗');
         }
     };
