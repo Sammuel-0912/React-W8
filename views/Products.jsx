@@ -23,7 +23,7 @@ const Products = () => {
     const [tempProduct, setTempProduct] = useState({});
 
 
-    const fetchProducts = async (page = 1, category = '') => {
+    const fetchProducts = useCallback(async (page = 1, category = '') => {
         setIsLoading(true);
         try {
             const res = await getProducts(page, category === '全部' ? '' : category);
@@ -34,7 +34,7 @@ const Products = () => {
         } finally {
             setIsLoading(false);
         }
-    };
+    },[]);
 
     // 開啟 Modal 的處理函式
     const openModal = (product) => {
@@ -47,7 +47,7 @@ const Products = () => {
 
     useEffect(() => {
         fetchProducts();
-    }, []);
+    }, [fetchProducts]);
 
     const handleCategoryChange = (category) => {
         setCurrentCategory(category);
