@@ -14,12 +14,15 @@ function UserProductModal({ tempProduct, addToCart }) {
   // 當 tempProduct 有資料時自動打開 Modal
   useEffect(() => {
     if (tempProduct.id) {
-      setQty(1); // 重置數量
       bsModal.current.show();
     }
   }, [tempProduct]);
 
-  const closeModal = () => bsModal.current.hide();
+  const closeModal = () => {
+    setQty(1);
+    bsModal.current.hide();
+
+  }
 
   return (
     <div className="modal fade" ref={modalRef} tabIndex="-1">

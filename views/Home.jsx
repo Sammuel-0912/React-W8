@@ -1,7 +1,7 @@
 // src/views/Home.jsx
 import { Link } from 'react-router-dom';
 import { useMemo } from 'react';
-import { motion } from 'framer-motion';
+
 
 const Home = () => {
   const stars = useMemo(() => {

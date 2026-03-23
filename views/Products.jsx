@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getProducts } from '../services/productService';
 import Pagination from '../component/Pagination'; // 延用您現有的分頁元件
-import * as bootstrap from "bootstrap";
+// import * as bootstrap from "bootstrap";
 import { useDispatch } from 'react-redux';
 import { addToCartAsync } from '../slice/cartSlice';
 import UserProductModal from '../component/UserProductModal'; 

@@ -13,7 +13,6 @@ function ProductModal({
 }) {
     const data = templateData || {};
     const {
-        id = "",
         imageUrl = "",
         title = "",
         category = "",

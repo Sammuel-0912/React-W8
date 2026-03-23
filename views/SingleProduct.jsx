@@ -4,7 +4,7 @@ const API_PATH = import.meta.env.VITE_API_PATH;
 // src/views/SingleProduct.jsx
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { getProducts, addToCart } from '../services/productService';
+import { getProducts } from '../services/productService';
 import { useDispatch } from 'react-redux';
 import { addToCartAsync } from '../slice/cartSlice';
 import UserProductModal from '../component/UserProductModal';
@@ -58,7 +58,7 @@ const SingleProduct = () => {
 
     useEffect(() => {
         if (id) fetchProduct();
-    }, [id]);
+    });
 
     if (isLoading) return <div className="container py-5 text-center"><div className="spinner-border"></div></div>;
 
