@@ -1,5 +1,5 @@
 // src/views/Products.jsx
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { getProducts } from '../services/productService';
 import Pagination from '../component/Pagination'; // 延用您現有的分頁元件
