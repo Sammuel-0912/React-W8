@@ -21,8 +21,8 @@ const AdminOrders = () => {
       const res = await getAdminOrders(page);
       setOrders(res.data.orders);
       setPagination(res.data.pagination);
-    } catch (error) {
-      console.error('取得訂單失敗:', error);
+    } catch {
+      alert("取得訂單失敗");
     }
   };
 
@@ -53,8 +53,7 @@ const AdminOrders = () => {
       await putAdminOrder(tempOrder.id, tempOrder);
       bsOrderModal.current.hide();
       fetchOrders(pagination.current_page);
-    } catch (error) {
-      console.error(error);
+    } catch  {
       alert('更新失敗');
     }
   };
@@ -68,8 +67,7 @@ const AdminOrders = () => {
       }
       bsDeleteModal.current.hide();
       fetchOrders();
-    } catch (error) {
-      console.error(error);
+    } catch {
       alert('刪除失敗');
     }
   };

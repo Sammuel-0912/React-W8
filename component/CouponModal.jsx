@@ -13,8 +13,7 @@ function CouponModal({ modalType, tempCoupon, setTempCoupon, fetchCoupons, bsMod
             }
             bsModal.current.hide();
             fetchCoupons();
-        } catch (error) { 
-            console.error(error);
+        } catch  { 
             alert("操作失敗");
         }
     };

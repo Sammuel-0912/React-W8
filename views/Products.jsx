@@ -29,8 +29,8 @@ const Products = () => {
             const res = await getProducts(page, category === '全部' ? '' : category);
             setProducts(res.data.products);
             setPagination(res.data.pagination);
-        } catch (error) {
-            console.error("取得產品失敗", error);
+        } catch{
+            alert("取得產品失敗");
         } finally {
             setIsLoading(false);
         }

@@ -22,8 +22,7 @@ const AdminArticles = () => {
             const res = await getAdminArticles(page);
             setArticles(res.data.articles);
             setPagination(res.data.pagination);
-        } catch (error) {
-            console.error(error);
+        } catch {
             alert('取得文章失敗');
         }
     };
@@ -51,8 +50,7 @@ const AdminArticles = () => {
                 const res = await getAdminArticle(article.id);
                 setTempArticle({ ...res.data.article });
                 bsModal.current.show();
-            } catch (error) {
-                console.error(error);
+            } catch{
                 alert('取得文章詳細資訊失敗');
             }
         }

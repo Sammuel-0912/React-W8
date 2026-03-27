@@ -32,8 +32,8 @@ const AdminProducts = () => {
             const res = await getAdminProducts(page);
             setProducts(res.data.products);
             setPagination(res.data.pagination);
-        } catch (error) {
-            console.error('取得產品失敗:', error);
+        } catch {
+            alert("取得產品失敗");
         }
     };
 
@@ -63,8 +63,7 @@ const AdminProducts = () => {
             }
             closeModal();
             fetchProducts();
-        } catch (error) {
-            console.error(error);
+        } catch {
             alert('操作失敗');
         }
     };
@@ -75,8 +74,7 @@ const AdminProducts = () => {
             await deleteAdminProduct(id);
             closeModal();
             fetchProducts();
-        } catch (error) {
-            console.error(error);
+        } catch  {
             alert('刪除失敗');
         }
     };

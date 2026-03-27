@@ -19,8 +19,8 @@ const Blog = () => {
             const res = await getArticles(page);
             setArticles(res.data.articles);
             setPagination(res.data.pagination);
-        } catch (error) {
-            console.error("取得文章失敗:", error);
+        } catch {
+            alert("取得文章失敗");   
         } finally {
             setIsLoading(false);
         }

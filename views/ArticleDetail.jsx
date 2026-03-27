@@ -12,8 +12,8 @@ const ArticleDetail = () => {
             try {
                 const res = await getArticle(id);
                 setArticle(res.data.article);
-            } catch (error) {
-                console.error("取得文章細節失敗:", error);
+            } catch{
+                alert("取得文章細節失敗");
             }
         };
         fetchArticle();

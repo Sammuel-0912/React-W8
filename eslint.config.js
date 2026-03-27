@@ -36,7 +36,7 @@ export default defineConfig([
         { allowConstantExport: true },
       ],
       'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
-      
+      'no-console' : 'warn',
       // 關鍵：這兩行確保 ESLint 知道 JSX 標籤代表變數已被使用
       'react/jsx-uses-react': 'error',
       'react/jsx-uses-vars': 'error',

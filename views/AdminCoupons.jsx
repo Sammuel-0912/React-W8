@@ -21,7 +21,9 @@ const AdminCoupons = () => {
             const res = await getAdminCoupons(page);
             setCoupons(res.data.coupons);
             setPagination(res.data.pagination);
-        } catch (error) { console.error('取得優惠券失敗:', error); }
+        } catch{ 
+            alert("取得優惠券失敗");
+        }
     };
 
     useEffect(() => {

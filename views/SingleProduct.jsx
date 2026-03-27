@@ -35,8 +35,8 @@ const SingleProduct = () => {
             // 這裡使用我們定義好的 asyncThunk
             await dispatch(addToCartAsync({ product_id: product.id, qty })).unwrap();
             // 成功後可以搭配 messageSlice 顯示 Toast (選配)
-        } catch (error) {
-            console.error("加入購物車失敗", error);
+        } catch {
+            alert("加入購物車失敗");
         } finally {
             setIsAddingCart(false);
         }
@@ -47,8 +47,8 @@ const SingleProduct = () => {
         try {
             const res = await getProducts(id);
             setProduct(res.data.product);
-        } catch (error) {
-            console.error("取得產品失敗", error);
+        } catch {
+            alert("取得產品失敗");
             // 若找不到產品則導回列表
             navigate('/products');
         } finally {

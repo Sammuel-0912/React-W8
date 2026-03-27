@@ -14,8 +14,7 @@ function ArticleModal({ modalType, tempArticle, setTempArticle, fetchArticles, b
             }
             bsModal.current.hide();
             fetchArticles();
-        } catch (error) {
-            console.error(error);
+        } catch  {
             alert('操作失敗');
         }
     };
