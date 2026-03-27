@@ -7,7 +7,6 @@ import Pagination from '../component/Pagination'; // 延用您現有的分頁元
 import { useDispatch } from 'react-redux';
 import { addToCartAsync } from '../slice/cartSlice';
 import UserProductModal from '../component/UserProductModal'; 
-
 const categories = ['全部', '模型精品', '服飾配件', '廚房用品']; // 依 API 實際分類調整
 
 const API_BASE = import.meta.env.VITE_API_BASE;
@@ -100,12 +99,18 @@ const Products = () => {
                                                     <del className="ms-2 text-secondary fs-7">NT$ {product.origin_price.toLocaleString()}</del>
                                                 </p>
                                                 <div className="d-grid gap-0">
-                                                    <button
+                                                    {/* <button
                                                         className="btn btn-outline-secondary w-100"
-                                                        onClick={() => openModal(product)} // 點選彈出視窗
+                                                        // onClick={() => openModal(product)} // 點選彈出視窗
+                                                    
                                                     >
                                                         查看細節
-                                                    </button>
+                                                    </button> */}
+                                                    <Link to={`/product/${product.id}`}
+                                                    className="btn btn-outline-secondary w-100"
+                                                    >
+                                                      查看細節
+                                                    </Link>
                                                     <button
                                                         className="btn btn-primary btn-sm w-100 mt-3"
                                                         onClick={() => handleAddToCart(product.id)}

@@ -1,13 +1,10 @@
-const API_BASE = import.meta.env.VITE_API_BASE;
-const API_PATH = import.meta.env.VITE_API_PATH;
-
 // src/views/SingleProduct.jsx
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { getProducts } from '../services/productService';
 import { useDispatch } from 'react-redux';
 import { addToCartAsync } from '../slice/cartSlice';
 import UserProductModal from '../component/UserProductModal';
+import { getProduct } from '../services/productService';
 
 const SingleProduct = () => {
     const { id } = useParams();
@@ -42,10 +39,10 @@ const SingleProduct = () => {
         }
     };
 
-    const fetchProduct = async () => {
+    const fetchProduct = useCallback(async () => {
         setIsLoading(true);
         try {
-            const res = await getProducts(id);
+            const res = await getProduct(id);
             setProduct(res.data.product);
         } catch {
             alert("取得產品失敗");
@@ -54,11 +51,11 @@ const SingleProduct = () => {
         } finally {
             setIsLoading(false);
         }
-    };
+    },[id, navigate]);
 
     useEffect(() => {
         if (id) fetchProduct();
-    });
+    },[fetchProduct, id]);
 
     if (isLoading) return <div className="container py-5 text-center"><div className="spinner-border"></div></div>;
 
