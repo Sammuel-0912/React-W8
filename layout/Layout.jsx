@@ -67,7 +67,7 @@ const Layout = () => {
       </main>
       <footer className="footer text-center">
         <div className="container">
-          <p>Copyright © 2026 SamDisnead's Page</p>
+          <p>Copyright © 2026 Disneads Page</p>
         </div>
       </footer>
     </>

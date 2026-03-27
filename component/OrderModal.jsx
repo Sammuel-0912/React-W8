@@ -1,6 +1,4 @@
 // src/component/OrderModal.jsx
-import { useEffect, useRef } from "react";
-
 function OrderModal({ tempOrder, setTempOrder, onUpdate, modalRef }) {
   
   // 處理收件人資訊變動

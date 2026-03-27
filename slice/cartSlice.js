@@ -59,7 +59,7 @@ export const deleteCartItemAsync = createAsyncThunk(
         message: '已成功刪除購物車項目'
       }));
       dispatch(getCartAsync());
-    } catch (error) {
+    } catch {
       dispatch(createAsyncMessage({
         success: false,
         message: '刪除失敗'

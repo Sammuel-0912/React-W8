@@ -7,11 +7,11 @@ import Pagination from '../component/Pagination';
 const Blog = () => {
     const [articles, setArticles] = useState([]);
     const [pagination, setPagination] = useState({});
-    const [isLoading, setIsLoading] = useState(false);
+    const [setIsLoading] = useState(false);
 
     useEffect(() => {
         fetchArticles();
-    }, []);
+    });
 
     const fetchArticles = async (page = 1) => {
         setIsLoading(true);
@@ -20,7 +20,7 @@ const Blog = () => {
             setArticles(res.data.articles);
             setPagination(res.data.pagination);
         } catch (error) {
-            console.error("取得文章失敗");
+            console.error("取得文章失敗:", error);
         } finally {
             setIsLoading(false);
         }

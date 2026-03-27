@@ -7,7 +7,7 @@ import { useState } from 'react';
 import { createAsyncMessage } from '../slice/messageSlice';
 
 const Cart = () => {
-  const { cart, total, final_total, isLoading } = useSelector((state) => state.cart);
+  const { cart, final_total, isLoading } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const [couponCode, setCouponCode] = useState('');
 
