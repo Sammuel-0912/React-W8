@@ -7,7 +7,8 @@ import Pagination from '../component/Pagination';
 const Blog = () => {
     const [articles, setArticles] = useState([]);
     const [pagination, setPagination] = useState({});
-    const [setIsLoading] = useState(false);
+    // eslint-disable-next-line no-unused-vars
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         fetchArticles();

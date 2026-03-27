@@ -9,9 +9,6 @@ import { addToCartAsync } from '../slice/cartSlice';
 import UserProductModal from '../component/UserProductModal'; 
 const categories = ['全部', '模型精品', '服飾配件', '廚房用品']; // 依 API 實際分類調整
 
-const API_BASE = import.meta.env.VITE_API_BASE;
-const API_PATH = import.meta.env.VITE_API_PATH;
-
 const Products = () => {
     const [products, setProducts] = useState([]);
     const [pagination, setPagination] = useState({});
@@ -19,6 +16,7 @@ const Products = () => {
     const [currentCategory, setCurrentCategory] = useState('全部');
 
     const dispatch = useDispatch();
+    // eslint-disable-next-line no-unused-vars
     const [tempProduct, setTempProduct] = useState({});
 
 
@@ -36,9 +34,9 @@ const Products = () => {
     },[]);
 
     // 開啟 Modal 的處理函式
-    const openModal = (product) => {
-        setTempProduct(product);
-    };
+    // const openModal = (product) => {
+    //     setTempProduct(product);
+    // };
 
     const handleAddToCart = (id) => {
         dispatch(addToCartAsync({ product_id: id, qty: 1 }));

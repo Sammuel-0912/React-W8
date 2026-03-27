@@ -3,7 +3,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addToCartAsync } from '../slice/cartSlice';
-import UserProductModal from '../component/UserProductModal';
+// import UserProductModal from '../component/UserProductModal';
 import { getProduct } from '../services/productService';
 
 const SingleProduct = () => {
