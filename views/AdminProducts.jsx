@@ -33,7 +33,7 @@ const AdminProducts = () => {
             setProducts(res.data.products);
             setPagination(res.data.pagination);
         } catch(error) {
-            alert("取得產品失敗:",error.response?.data?.message);
+            alert(`失敗:${error.response?.data?.message}`);
         }
     };
 
@@ -64,8 +64,7 @@ const AdminProducts = () => {
             closeModal();
             fetchProducts();
         } catch(error) {
-          const errorMessage = error.response?.data?.message || "操作失敗，請施後再試";  
-          alert(`操作失敗:${errorMessage}`);
+          alert(`失敗:${error.response?.data?.message}`);
         }
     };
 
@@ -75,8 +74,8 @@ const AdminProducts = () => {
             await deleteAdminProduct(id);
             closeModal();
             fetchProducts();
-        } catch  {
-            alert('刪除失敗');
+        } catch(error)  {
+            alert(`失敗:${error.response?.data?.message}`);
         }
     };
 
