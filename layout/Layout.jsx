@@ -1,10 +1,15 @@
-import { Outlet,  NavLink } from "react-router-dom";
+import { Outlet,  NavLink, useLocation } from "react-router-dom";
 import "../src/assets/all.scss";
 import MessageToast from "../component/MessageToast";
 import { useState } from "react";
 
+
 const Layout = () => {
   const [open, setOpen] = useState(false);
+  const location = useLocation();
+
+  // 判斷是否處於後台路徑
+  const isAdmininPath = location.pathname.startsWith('/admin');
 
   return (
     <>
@@ -43,7 +48,11 @@ const Layout = () => {
                   <li className="nav-item">
                     <NavLink className="nav-link px-3" to="/blog">故事館</NavLink>
                   </li>
-                  <li className="nav-item">
+                  {/* 條件渲染，只有在後台路徑時才顯示這些選單 */}
+                  {
+                    isAdmininPath && (
+                    <>
+                      <li className="nav-item">
                     <NavLink className="nav-link px-3" to="/admin/products">後台產品管理</NavLink>
                   </li>
                   <li className="nav-item">
@@ -55,6 +64,8 @@ const Layout = () => {
                   <li className="nav-item">
                     <NavLink className="nav-link px-3" to="/admin/articles">後台文章管理</NavLink>
                   </li>
+                    </>
+                    )}
                 </ul>
               </div>
             </div>
@@ -69,6 +80,8 @@ const Layout = () => {
         <div className="container">
           <p>Copyright © 2026 Disneads Page</p>
         </div>
+        {/* 新增進入後台的入口 */}
+        <NavLink to="admin/products" className="text-secondary text-decoration-none fs-7">進入後台系統</NavLink >  
       </footer>
     </>
   );

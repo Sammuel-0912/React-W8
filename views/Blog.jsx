@@ -7,12 +7,7 @@ import Pagination from '../component/Pagination';
 const Blog = () => {
     const [articles, setArticles] = useState([]);
     const [pagination, setPagination] = useState({});
-    // eslint-disable-next-line no-unused-vars
     const [isLoading, setIsLoading] = useState(false);
-
-    useEffect(() => {
-        fetchArticles();
-    });
 
     const fetchArticles = async (page = 1) => {
         setIsLoading(true);
@@ -27,14 +22,35 @@ const Blog = () => {
         }
     };
 
+    useEffect(() => {
+    const fetchArticles = async (page = 1) => {
+      setIsLoading(true);
+      try {
+        const res = await getArticles(page);
+        setArticles(res.data.articles);
+        setPagination(res.data.pagination);
+      } catch {
+        alert("取得文章失敗");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchArticles();
+  }, []);
+
     return (
         <div className="container py-5">
             <header className="text-center mb-5">
                 <h2 className="fw-bold display-5">魔法故事館</h2>
                 <p className="text-muted">探索迪士尼與皮克斯背後的奇幻靈感與動人瞬間</p>
             </header>
-
-            <div className="row g-4">
+            {isLoading ? (
+              <div className="d-flex justify-content-center py-5">
+                  <div className="spinner-border" role="status"></div>
+              </div>
+            ) : (
+              <>
+                <div className="row g-4">
                 {articles.map((article) => (
                     <div className="col-md-4" key={article.id}>
                         <div className="card h-100 border-0 shadow-sm hover-shadow transition">
@@ -62,12 +78,13 @@ const Blog = () => {
                     </div>
                 ))}
             </div>
-
-            <div className="d-flex justify-content-center mt-5">
-                <Pagination pagination={pagination} changePage={fetchArticles} />
-            </div>
+            
+              <div className="d-flex justify-content-center mt-5">
+              <Pagination pagination={pagination} changePage={fetchArticles} />
+              </div>
+            </>
+          )}
         </div>
-    );
-};
-
+    )
+}; 
 export default Blog;

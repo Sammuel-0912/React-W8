@@ -10,7 +10,7 @@ const Cart = () => {
   const { cart, final_total, isLoading } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const [couponCode, setCouponCode] = useState('');
-
+  
   useEffect(() => {
     dispatch(getCartAsync());
   }, [dispatch]);
@@ -20,7 +20,17 @@ const Cart = () => {
     dispatch(updateCartAsync({ id: item.id, product_id: item.product_id, qty }));
   };
 
-  if (cart.length === 0 && !isLoading) {
+  // 先判斷loading, 避免畫面閃現
+  if(isLoading) {
+    return (
+    <div className="container py-5 text-center">
+      <div className="spinner-border text-primary" role="status">
+        <span className="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  );
+  }
+  if (cart.length === 0) {
     return (
       <div className="container py-5 text-center">
         <h2>購物車是空的</h2>
@@ -32,6 +42,10 @@ const Cart = () => {
   
 
   const handleApplyCoupon = async () => {
+    // 確認使用者有輸入值，再觸發API
+    if(!couponCode.trim()) {
+      dispatch(createAsyncMessage({success: false, message: "請輸入優惠碼"}));
+    }
     try {
       const res = await postApplyCoupon(couponCode);
       dispatch(createAsyncMessage({ success: true, message: res.data.message }));
