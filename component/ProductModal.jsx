@@ -98,30 +98,33 @@ function ProductModal({
                                     )}
                                 </div>
                                 <div>
-                                    {imagesUrl.map((image, index) => (
+                                  {/* 確保imagesUrl存在才進行map */}
+                                    {imagesUrl && imagesUrl.map((image, index) => (
                                         <div key={index} className="mb-2">
+                                          <label className="form-label">副圖網址{index + 1}</label>
                                             <input
                                                 type="text"
                                                 value={image}
                                                 onChange={(e) => onImageChange(index, e.target.value)}
-                                                placeholder={`圖片網址 ${index + 1}`}
+                                                placeholder="請輸入圖片連結"
                                                 className="form-control mb-2"
                                             />
                                             {image && (
                                                 <img
                                                     src={image}
-                                                    alt={`副圖 ${index + 1}`}
+                                                    alt={`預覽圖 ${index + 1}`}
                                                     className="img-preview mb-2"
+                                                    style={{maxHeight: "100px"}}
                                                 />
                                             )}
                                         </div>
                                     ))}
 
                                     <div className="d-flex justify-content-between">
-                                        {imagesUrl.length < 5 &&
+                                        {(!imagesUrl || imagesUrl.length === 0 || 
                                             imagesUrl[
                                             imagesUrl.length - 1
-                                            ] !== "" && (
+                                            ]) && imagesUrl.length < 5 && (
                                                 <button
                                                     className="btn btn-outline-primary btn-sm w-100"
                                                     onClick={onAddImage}
@@ -130,7 +133,7 @@ function ProductModal({
                                                 </button>
                                             )}
 
-                                        {imagesUrl.length >= 1 && (
+                                        {imagesUrl && imagesUrl.length >= 1 && (
                                             <button
                                                 className="btn btn-outline-danger btn-sm w-100"
                                                 onClick={onRemoveImage}

@@ -32,8 +32,8 @@ const AdminProducts = () => {
             const res = await getAdminProducts(page);
             setProducts(res.data.products);
             setPagination(res.data.pagination);
-        } catch {
-            alert("取得產品失敗");
+        } catch(error) {
+            alert("取得產品失敗:",error.response?.data?.message);
         }
     };
 
@@ -63,8 +63,9 @@ const AdminProducts = () => {
             }
             closeModal();
             fetchProducts();
-        } catch {
-            alert('操作失敗');
+        } catch(error) {
+          const errorMessage = error.response?.data?.message || "操作失敗，請施後再試";  
+          alert(`操作失敗:${errorMessage}`);
         }
     };
 
@@ -109,6 +110,35 @@ const AdminProducts = () => {
             e.target.value = '';
         }
     };
+    //處理副圖網址變更
+    const handleImageChange = (index, value) => {
+      const newImages = [...tempProduct.imagesUrl];
+      newImages[index] = value;
+      setTempProduct({
+        ...tempProduct,
+        imagesUrl: newImages
+      });
+    };
+    //新增一個空白的副圖欄位
+    const handleAddImage = () => {
+      const newImages = tempProduct.imagesUrl ? [...tempProduct.imagesUrl] : [];
+      newImages.push("");
+      setTempProduct({
+        ...tempProduct,
+        imagesUrl: newImages
+      });
+    };
+
+    //移除最後一個副圖欄位
+    const handleRemoveImage = () => {
+      const newImages = [...tempProduct.imagesUrl];
+      newImages.pop();
+      setTempProduct({
+        ...tempProduct,
+        imagesUrl: newImages
+      });
+    };
+
 
     return (
         <div className="container py-5">
@@ -170,6 +200,9 @@ const AdminProducts = () => {
                     onDeleteProduct={handleDeleteProduct}
                     onFileChange={handleFileChange}
                     isUploading={isUploading}
+                    onImageChange={handleImageChange}
+                    onAddImage={handleAddImage}
+                    onRemoveImage={handleRemoveImage}
                 />
             </div>
         </div>
