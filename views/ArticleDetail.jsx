@@ -32,7 +32,7 @@ const ArticleDetail = () => {
             </nav>
 
             <article className="mx-auto" style={{ maxWidth: '800px' }}>
-                <img src={article.image} className="img-fluid rounded-4 mb-5 shadow w-100" alt="" />
+                <img src={article.image} className="img-fluid rounded-4 mb-5 shadow w-100" alt="這是文章的圖片" />
 
                 <header className="mb-5">
                     <h1 className="fw-bold display-4 mb-3">{article.title}</h1>

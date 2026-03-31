@@ -96,7 +96,11 @@ const SingleProduct = () => {
                                     type="number"
                                     className="form-control border-0 text-center my-auto shadow-none bg-light"
                                     value={qty}
-                                    readOnly
+                                    onChange={(e) => {
+                                        const value = parseInt(e.target.value);
+                                        //確保輸入是數字且>= 1
+                                        setQty(isNaN(value) || value < 1 ? 1 : value);
+                                    }}  
                                 />
                                 <button
                                     className="btn btn-outline-dark border-0 py-2"

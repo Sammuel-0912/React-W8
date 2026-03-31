@@ -48,7 +48,7 @@ const Checkout = () => {
               <h4 className="fw-bold mb-4">訂單摘要</h4>
               {cart.map((item) => (
                 <div key={item.id} className="d-flex mb-3">
-                  <img src={item.product.imageUrl} alt="" style={{ width: '48px', height: '48px', objectFit: 'cover' }} className="rounded me-3" />
+                  <img src={item.product.imageUrl} alt="這是購物車的圖片" style={{ width: '48px', height: '48px', objectFit: 'cover' }} className="rounded me-3" />
                   <div className="w-100">
                     <div className="d-flex justify-content-between">
                       <p className="mb-0 fw-bold">{item.product.title}</p>
@@ -127,7 +127,7 @@ const Checkout = () => {
             </div>
 
             <div className="d-grid">
-              <button type="submit" className="btn btn-dark py-3 fw-bold" onClick={onSubmit()}>確認送出訂單</button>
+              <button type="submit" className="btn btn-dark py-3 fw-bold" onClick={onSubmit}>確認送出訂單</button>
             </div>
           </form>
         </div>

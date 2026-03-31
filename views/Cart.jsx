@@ -45,6 +45,7 @@ const Cart = () => {
     // 確認使用者有輸入值，再觸發API
     if(!couponCode.trim()) {
       dispatch(createAsyncMessage({success: false, message: "請輸入優惠碼"}));
+      return;
     }
     try {
       const res = await postApplyCoupon(couponCode);
@@ -75,7 +76,7 @@ const Cart = () => {
                 <tr key={item.id}>
                   <td className="px-4 py-3">
                     <div className="d-flex align-items-center">
-                      <img src={item.product.imageUrl} alt="" style={{ width: '60px', height: '60px', objectFit: 'cover' }} className="me-3" />
+                      <img src={item.product.imageUrl} alt="這是購買清單的圖片" style={{ width: '60px', height: '60px', objectFit: 'cover' }} className="me-3" />
                       <h5 className='me-4'>{item.product.title}</h5>
                     </div>
                   </td>

@@ -44,7 +44,7 @@ function ArticleModal({ modalType, tempArticle, setTempArticle, fetchArticles, b
                                     <label htmlFor="image" className="form-label">文章封面圖</label>
                                     <input id="image" type="text" className="form-control" value={tempArticle.image || ''} onChange={handleChange} />
                                 </div>
-                                <img src={tempArticle.image} className="img-fluid" alt="" />
+                                <img src={tempArticle.image} className="img-fluid" alt="文章的照片" />
                             </div>
                             <div className="col-sm-8">
                                 <div className="mb-3">
