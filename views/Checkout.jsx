@@ -127,7 +127,7 @@ const Checkout = () => {
             </div>
 
             <div className="d-grid">
-              <button type="submit" className="btn btn-dark py-3 fw-bold" onClick={onSubmit}>確認送出訂單</button>
+              <button type="submit" className="btn btn-dark py-3 fw-bold">確認送出訂單</button>
             </div>
           </form>
         </div>
