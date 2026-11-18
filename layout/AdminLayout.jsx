@@ -12,7 +12,7 @@ const AdminLayout = () => {
   useEffect(() => {
     // 1. 取出 Cookie
     const token = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/, "$1");
-    
+
     // 2. 設定 Axios 預設 Header (非常重要！)
     axios.defaults.headers.common['Authorization'] = token;
 
@@ -21,7 +21,7 @@ const AdminLayout = () => {
       try {
         await axios.post(`${API_BASE}/api/user/check`);
         setIsAuth(true); // 驗證成功
-      } catch (error) {
+      } catch  {
         alert('請先登入');
         navigate('/login'); // 失敗則退回登入頁
       }
@@ -44,9 +44,10 @@ const AdminLayout = () => {
           <div className="navbar-nav">
             <Link className="nav-link" to="/admin/products">產品管理</Link>
             <Link className="nav-link text-danger" onClick={() => {
-               document.cookie = "hexToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-               navigate('/login');
+              document.cookie = "hexToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+              navigate('/login');
             }}>登出</Link>
+            
           </div>
         </div>
       </nav>

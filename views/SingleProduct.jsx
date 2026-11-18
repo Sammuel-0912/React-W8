@@ -1,13 +1,10 @@
-const API_BASE = import.meta.env.VITE_API_BASE;
-const API_PATH = import.meta.env.VITE_API_PATH;
-
 // src/views/SingleProduct.jsx
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { getProducts, addToCart } from '../services/productService';
 import { useDispatch } from 'react-redux';
 import { addToCartAsync } from '../slice/cartSlice';
-import UserProductModal from '../component/UserProductModal';
+// import UserProductModal from '../component/UserProductModal';
+import { getProduct } from '../services/productService';
 
 const SingleProduct = () => {
     const { id } = useParams();
@@ -35,30 +32,30 @@ const SingleProduct = () => {
             // 這裡使用我們定義好的 asyncThunk
             await dispatch(addToCartAsync({ product_id: product.id, qty })).unwrap();
             // 成功後可以搭配 messageSlice 顯示 Toast (選配)
-        } catch (error) {
-            console.error("加入購物車失敗", error);
+        } catch {
+            alert("加入購物車失敗");
         } finally {
             setIsAddingCart(false);
         }
     };
 
-    const fetchProduct = async () => {
+    const fetchProduct = useCallback(async () => {
         setIsLoading(true);
         try {
-            const res = await getProducts(id);
+            const res = await getProduct(id);
             setProduct(res.data.product);
-        } catch (error) {
-            console.error("取得產品失敗", error);
+        } catch {
+            alert("取得產品失敗");
             // 若找不到產品則導回列表
             navigate('/products');
         } finally {
             setIsLoading(false);
         }
-    };
+    },[id, navigate]);
 
     useEffect(() => {
         if (id) fetchProduct();
-    }, [id]);
+    },[fetchProduct, id]);
 
     if (isLoading) return <div className="container py-5 text-center"><div className="spinner-border"></div></div>;
 
@@ -99,7 +96,11 @@ const SingleProduct = () => {
                                     type="number"
                                     className="form-control border-0 text-center my-auto shadow-none bg-light"
                                     value={qty}
-                                    readOnly
+                                    onChange={(e) => {
+                                        const value = parseInt(e.target.value);
+                                        //確保輸入是數字且>= 1
+                                        setQty(isNaN(value) || value < 1 ? 1 : value);
+                                    }}  
                                 />
                                 <button
                                     className="btn btn-outline-dark border-0 py-2"

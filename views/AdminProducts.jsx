@@ -5,6 +5,7 @@ import { getAdminProducts, postAdminProduct, putAdminProduct, deleteAdminProduct
 import ProductModal from '../component/ProductModal';
 import Pagination from '../component/Pagination';
 import { useDispatch } from 'react-redux';
+import { createAsyncMessage } from '../slice/messageSlice'; 
 
 const AdminProducts = () => {
     const [products, setProducts] = useState([]);
@@ -31,8 +32,8 @@ const AdminProducts = () => {
             const res = await getAdminProducts(page);
             setProducts(res.data.products);
             setPagination(res.data.pagination);
-        } catch (error) {
-            console.error('取得產品失敗');
+        } catch(error) {
+            alert(`失敗:${error.response?.data?.message}`);
         }
     };
 
@@ -62,8 +63,8 @@ const AdminProducts = () => {
             }
             closeModal();
             fetchProducts();
-        } catch (error) {
-            alert('操作失敗');
+        } catch(error) {
+          alert(`失敗:${error.response?.data?.message}`);
         }
     };
 
@@ -73,8 +74,8 @@ const AdminProducts = () => {
             await deleteAdminProduct(id);
             closeModal();
             fetchProducts();
-        } catch (error) {
-            alert('刪除失敗');
+        } catch(error)  {
+            alert(`失敗:${error.response?.data?.message}`);
         }
     };
 
@@ -108,6 +109,35 @@ const AdminProducts = () => {
             e.target.value = '';
         }
     };
+    //處理副圖網址變更
+    const handleImageChange = (index, value) => {
+      const newImages = [...tempProduct.imagesUrl];
+      newImages[index] = value;
+      setTempProduct({
+        ...tempProduct,
+        imagesUrl: newImages
+      });
+    };
+    //新增一個空白的副圖欄位
+    const handleAddImage = () => {
+      const newImages = tempProduct.imagesUrl ? [...tempProduct.imagesUrl] : [];
+      newImages.push("");
+      setTempProduct({
+        ...tempProduct,
+        imagesUrl: newImages
+      });
+    };
+
+    //移除最後一個副圖欄位
+    const handleRemoveImage = () => {
+      const newImages = [...tempProduct.imagesUrl];
+      newImages.pop();
+      setTempProduct({
+        ...tempProduct,
+        imagesUrl: newImages
+      });
+    };
+
 
     return (
         <div className="container py-5">
@@ -119,22 +149,22 @@ const AdminProducts = () => {
             <table className="table mt-4">
                 <thead>
                     <tr>
-                        <th width="120">分類</th>
-                        <th>產品名稱</th>
-                        <th width="120">原價</th>
-                        <th width="120">售價</th>
-                        <th width="100">是否啟用</th>
-                        <th width="120">編輯</th>
+                        <th className='text-center'>分類</th>
+                        <th className='text-center'>產品名稱</th>
+                        <th className='text-center'>原價</th>
+                        <th className='text-center'>售價</th>
+                        <th className='text-center'>是否啟用</th>
+                        <th className='text-center'>編輯</th>
                     </tr>
                 </thead>
                 <tbody>
                     {products.map((item) => (
                         <tr key={item.id}>
-                            <td>{item.category}</td>
-                            <td>{item.title}</td>
-                            <td>{item.origin_price}</td>
-                            <td>{item.price}</td>
-                            <td>
+                            <td className='text-center'>{item.category}</td>
+                            <td className='text-center'>{item.title}</td>
+                            <td className='text-center'>{item.origin_price}</td>
+                            <td className='text-center'>{item.price}</td>
+                            <td className='text-center'>
                                 <span className={item.is_enabled ? 'text-success' : 'text-danger'}>
                                     {item.is_enabled ? '啟用' : '未啟用'}
                                 </span>
@@ -169,6 +199,9 @@ const AdminProducts = () => {
                     onDeleteProduct={handleDeleteProduct}
                     onFileChange={handleFileChange}
                     isUploading={isUploading}
+                    onImageChange={handleImageChange}
+                    onAddImage={handleAddImage}
+                    onRemoveImage={handleRemoveImage}
                 />
             </div>
         </div>

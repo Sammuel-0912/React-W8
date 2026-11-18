@@ -7,7 +7,10 @@ export const getProducts = (page = 1, category = '') => {
   const url = `${API_BASE}/api/${API_PATH}/products?page=${page}${category ? `&category=${category}` : ''}`;
   return axios.get(url);
 };
-
+// 新增：取得單一產品詳細內容 (單數)
+export const getProduct = (id) => {
+  return axios.get(`${API_BASE}/api/${API_PATH}/product/${id}`);
+};
 // 預留加入購物車 API
 export const addToCart = (product_id, qty) => {
   const url = `${API_BASE}/api/${API_PATH}/cart`;
@@ -44,4 +47,9 @@ export const uploadImage = (file) => {
   const formData = new FormData();
   formData.append('file-to-upload', file); // API 規定的 key 值
   return axios.post(`${API_BASE}/api/${API_PATH}/admin/upload`, formData);
+};
+
+//新增前台套用優惠券
+export const postApplyCoupon = (code) => {
+  return axios.post(`${API_BASE}/api/${API_PATH}/coupon`, { data: { code } });
 };

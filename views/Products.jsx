@@ -1,17 +1,13 @@
 // src/views/Products.jsx
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { getProducts } from '../services/productService';
 import Pagination from '../component/Pagination'; // 延用您現有的分頁元件
-import * as bootstrap from "bootstrap";
+// import * as bootstrap from "bootstrap";
 import { useDispatch } from 'react-redux';
 import { addToCartAsync } from '../slice/cartSlice';
 import UserProductModal from '../component/UserProductModal'; 
-
 const categories = ['全部', '模型精品', '服飾配件', '廚房用品']; // 依 API 實際分類調整
-
-const API_BASE = import.meta.env.VITE_API_BASE;
-const API_PATH = import.meta.env.VITE_API_PATH;
 
 const Products = () => {
     const [products, setProducts] = useState([]);
@@ -20,26 +16,27 @@ const Products = () => {
     const [currentCategory, setCurrentCategory] = useState('全部');
 
     const dispatch = useDispatch();
+    // eslint-disable-next-line no-unused-vars
     const [tempProduct, setTempProduct] = useState({});
 
 
-    const fetchProducts = async (page = 1, category = '') => {
+    const fetchProducts = useCallback(async (page = 1, category = '') => {
         setIsLoading(true);
         try {
             const res = await getProducts(page, category === '全部' ? '' : category);
             setProducts(res.data.products);
             setPagination(res.data.pagination);
-        } catch (error) {
-            console.error("取得產品失敗", error);
+        } catch{
+            alert("取得產品失敗");
         } finally {
             setIsLoading(false);
         }
-    };
+    },[]);
 
     // 開啟 Modal 的處理函式
-    const openModal = (product) => {
-        setTempProduct(product);
-    };
+    // const openModal = (product) => {
+    //     setTempProduct(product);
+    // };
 
     const handleAddToCart = (id) => {
         dispatch(addToCartAsync({ product_id: id, qty: 1 }));
@@ -47,7 +44,7 @@ const Products = () => {
 
     useEffect(() => {
         fetchProducts();
-    }, []);
+    }, [fetchProducts]);
 
     const handleCategoryChange = (category) => {
         setCurrentCategory(category);
@@ -100,12 +97,18 @@ const Products = () => {
                                                     <del className="ms-2 text-secondary fs-7">NT$ {product.origin_price.toLocaleString()}</del>
                                                 </p>
                                                 <div className="d-grid gap-0">
-                                                    <button
+                                                    {/* <button
                                                         className="btn btn-outline-secondary w-100"
-                                                        onClick={() => openModal(product)} // 點選彈出視窗
+                                                        // onClick={() => openModal(product)} // 點選彈出視窗
+                                                    
                                                     >
                                                         查看細節
-                                                    </button>
+                                                    </button> */}
+                                                    <Link to={`/product/${product.id}`}
+                                                    className="btn btn-outline-secondary w-100"
+                                                    >
+                                                      查看細節
+                                                    </Link>
                                                     <button
                                                         className="btn btn-primary btn-sm w-100 mt-3"
                                                         onClick={() => handleAddToCart(product.id)}
